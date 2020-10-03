@@ -1,0 +1,55 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# Dependencies
+node_modules/
+
+# Compiled output
+build
+
+# Runtime data
+database.sqlite
+
+# Test coverage
+coverage
+.nyc_output
+jest-results
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editors and IDEs
+.idea
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Misc
+.DS_Store
+*.orig
+tmp-*
+
+# Files
+*.dump
+*.csv
+*.env
+!inspection-rules.csv
+
+# PII Data
+preapprovals/
+private/temp/
+
+.cache-loader
+
+# Cypress
+cypress/results
+
+# Local db persistence
+postgres-data
+
+# Local CircleCI config
+processed-config.yml

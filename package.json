@@ -1,0 +1,20 @@
+{
+  "name": "ast-creation",
+  "version": "1.0.0",
+  "description": "Tool to get all the top level decls in divvy homes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/parser": "^7.11.5",
+    "@babel/plugin-transform-typescript": "^7.11.0",
+    "acorn": "^8.0.3",
+    "fast-safe-stringify": "^2.0.7",
+    "recast": "^0.20.3",
+    "walk": "^2.3.14"
+  }
+}
