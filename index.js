@@ -208,6 +208,20 @@ function processSource(source, sourcePath, rootPath) {
             addModule(moduleName, sourcePath, rootPath);
             return false;
         },
+        // visitExportSpecifier(astPath) {
+        //     const moduleName = astPath;
+        //     console.log('woop', moduleName);
+        //     // addModule(moduleName, sourcePath, rootPath);
+        //     return false;
+        // },
+        visitExportNamedDeclaration(astPath) {
+            if (!astPath.value.source) {
+                return false;
+            }
+            const moduleName = astPath.value.source.value;
+            addModule(moduleName, sourcePath, rootPath);
+            return false;
+        },
         visitCallExpression
     });
 }
@@ -228,7 +242,8 @@ const walkOptions = {
     ]
 }
 
-const indexingWalker = walk('../divvy-homes', walkOptions);
+const rootFolder = '../divvy-homes/src/';
+const indexingWalker = walk(rootFolder, walkOptions);
 indexingWalker.on("file", (root, fileStats, next) => {
     if (!['.js', '.jsx', '.ts', '.tsx'].includes(path.extname(fileStats.name))) {
         return next();
@@ -236,7 +251,7 @@ indexingWalker.on("file", (root, fileStats, next) => {
     modules[path.join(root, fileStats.name)] = {};
     next();
 }).on('end', () => {
-    const walker = walk('../divvy-homes', walkOptions);
+    const walker = walk(rootFolder, walkOptions);
     walker.on("file", (root, fileStats, next) => {
         if (!['.js', '.jsx', '.ts', '.tsx'].includes(path.extname(fileStats.name))) {
             return next();
@@ -254,6 +269,9 @@ indexingWalker.on("file", (root, fileStats, next) => {
         });
     }).on('end', () => {
         for (const [key, value] of Object.entries(modules)) {
+            if (Object.entries(value).length !== 0) {
+                continue;
+            }
             console.log(`${key}, ${Object.entries(value).length}`)
         }
         // for (const [key, value] of Object.entries(declaredIdentifiers)) {
