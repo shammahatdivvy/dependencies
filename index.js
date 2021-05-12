@@ -248,6 +248,9 @@ indexingWalker.on("file", (root, fileStats, next) => {
     if (!['.js', '.jsx', '.ts', '.tsx'].includes(path.extname(fileStats.name))) {
         return next();
     }
+    if (fileStats.name.endsWith('.test.tsx') || fileStats.name.endsWith('.test.ts')) {
+        return next();
+    }
     modules[path.join(root, fileStats.name)] = {};
     next();
 }).on('end', () => {
